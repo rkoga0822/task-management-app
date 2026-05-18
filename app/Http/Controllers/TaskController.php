@@ -15,6 +15,7 @@ class TaskController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny',Task::class);
         $tasks = auth()->user()->tasks()->latest()->get();
         return view('tasks.index', compact('tasks'));
     }
@@ -43,15 +44,17 @@ class TaskController extends Controller
      */
     public function show(Task $task): View
     {
+        $this->authorize('view', $task);
         return view('tasks.show', compact('task'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task):View
+    public function edit(Task $task): View
     {
-        return view('tasks.edit',compact('task'));
+        $this->authorize('update', $task);
+        return view('tasks.edit', compact('task'));
     }
 
     /**
@@ -59,6 +62,7 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
+        $this->authorize('update', $task);
         $task->update($request->validated());
         return redirect()->route('tasks.index');
     }
@@ -68,6 +72,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        $this->authorize('delete', $task);
         $task->delete();
         return redirect()->route('tasks.index');
     }

@@ -15,7 +15,9 @@
     <p>ステータス：{{$task->status_label}}</p>
     <p>期限：{{$task->due_date}}</p>
 
+    @can('update',$task)
     <a href="{{route('tasks.edit',$task)}}">編集</a><br>
+    @endcan
     <a href="{{route('tasks.index')}}">一覧に戻る</a>
 
 </body>
