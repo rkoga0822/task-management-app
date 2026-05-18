@@ -9,7 +9,26 @@
 
 <body>
     <h1>Todo一覧</h1>
-    <a href="{{route('tasks.create')}}">新規作成</a>
+    <h2>こんにちは{{auth()->user()->name}}さん</h2>
+    <a href="{{route('tasks.create')}}">新規作成</a><br>
+
+    <!-- 絞り込み -->
+    <form method="GET" action="{{ route('tasks.index') }}">
+
+    <select name="status">
+        <option value="">全て</option>
+
+        <option value="todo" {{ request('status')=='todo' ? 'selected':'' }}>未完了</option>
+
+        <option value="doing" {{ request('status')=='doing' ? 'selected':'' }}>進行中</option>
+
+        <option value="done" {{ request('status')=='done' ? 'selected':'' }}>完了</option>
+
+    </select>
+
+    <button>絞り込み</button>
+
+</form>
 
     @foreach($tasks as $task)
     <p>タイトル：{{$task->title}}</p>

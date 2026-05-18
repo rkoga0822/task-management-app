@@ -13,10 +13,19 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $this->authorize('viewAny',Task::class);
-        $tasks = auth()->user()->tasks()->latest()->get();
+
+        //絞り込み
+        $status = $request->input('status');
+
+        $tasks = auth()->user()->tasks()
+        ->when($status, function ($query, $status) {
+            $query->where('status', $status);
+        })
+        ->latest()->get();
+
         return view('tasks.index', compact('tasks'));
     }
 
@@ -76,4 +85,5 @@ class TaskController extends Controller
         $task->delete();
         return redirect()->route('tasks.index');
     }
+
 }
