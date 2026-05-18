@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -11,10 +12,10 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index():View
+    public function index(): View
     {
         $tasks = auth()->user()->tasks()->latest()->get();
-        return view('tasks.index',compact('tasks'));
+        return view('tasks.index', compact('tasks'));
     }
 
     /**
@@ -22,15 +23,18 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('tasks.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
-        //
+        auth()->user()->tasks()->create(
+            $request->validated()
+        );
+        return redirect()->route('tasks.index');
     }
 
     /**
