@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Todo一覧</h1>
-    <a href="">新規作成</a>
+    <a href="{{route('tasks.create')}}">新規作成</a>
     @foreach($tasks as $task)
     <p>タイトル：{{$task->title}}</p>
     <p>本文：{{$task->body}}</p>
