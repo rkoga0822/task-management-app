@@ -12,7 +12,7 @@
 
     <p>タイトル：{{$task->title}}</p>
     <p>本文：{{$task->body}}</p>
-    <p>ステータス：{{$task->status}}</p>
+    <p>ステータス：{{$task->status_label}}</p>
     <p>期限：{{$task->due_date}}</p>
 
     <a href="{{route('tasks.edit',$task)}}">編集</a><br>

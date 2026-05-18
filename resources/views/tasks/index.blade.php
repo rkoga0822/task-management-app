@@ -13,7 +13,7 @@
 
     @foreach($tasks as $task)
     <p>タイトル：{{$task->title}}</p>
-    <p>ステータス：{{$task->status}}</p>
+    <p>ステータス：{{$task->status_label}}</p>
     <p>期限：{{$task->due_date}}</p>
     <a href="{{route('tasks.show',$task)}}">詳細画面</a>
     @endforeach

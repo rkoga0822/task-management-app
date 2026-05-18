@@ -21,4 +21,14 @@ class Task extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    //accessor
+    public function getStatusLabelAttribute()
+    {
+        return [
+            'todo' => '未完了',
+            'doing' => '進行中',
+            'done' => '完了',
+        ][$this->status] ?? '不明';
+    }
 }
