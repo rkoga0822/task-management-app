@@ -15,12 +15,17 @@
     <p>タイトル：{{$task->title}}</p>
     <p>ステータス：{{$task->status_label}}</p>
     <p>期限：{{$task->due_date}}</p>
+    @can('view',$task)
     <a href="{{route('tasks.show',$task)}}">詳細画面</a>
+    @endcan
+
+    @can('delete',$task)
     <form action="{{route('tasks.destroy',$task)}}" method="post">
         @csrf
         @method('DELETE')
         <button type="submit" onclick="return confirm('本当に削除しますか')">削除</button>
     </form>
+    @endcan
     @endforeach
 
 </body>
