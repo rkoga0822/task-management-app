@@ -1,25 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-layouts::app :title="__('Todo詳細')">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>タスク詳細画面</title>
-</head>
+    <div class="mx-auto max-w-3xl">
 
-<body>
-    <h1>タスク詳細画面</h1>
+        <!-- タイトル -->
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold">タスク詳細</h1>
+            <p class="mt-2 text-gray-500">タスクの詳細情報です</p>
+        </div>
 
-    <p>タイトル：{{$task->title}}</p>
-    <p>本文：{{$task->body}}</p>
-    <p>ステータス：{{$task->status_label}}</p>
-    <p>期限：{{$task->due_date}}</p>
+        <!-- カード -->
+        <div class="rounded-2xl border bg-white p-8 shadow-sm">
+            <!-- タイトル -->
+            <div class="mb-6">
+                <p class="mb-2 text-sm text-gray-500">タイトル</p>
+                <p class="text-2xl font-bold">{{ $task->title }}</p>
+            </div>
 
-    @can('update',$task)
-    <a href="{{route('tasks.edit',$task)}}">編集</a><br>
-    @endcan
-    <a href="{{route('tasks.index')}}">一覧に戻る</a>
+            <!-- 本文 -->
+            <div class="mb-6">
+                <p class="mb-2 text-sm text-gray-500">本文</p>
 
-</body>
+                <div class="rounded-lg bg-gray-50 p-4">
+                    {{ $task->body ?: '本文なし' }}
+                </div>
+            </div>
 
-</html>
+            <!-- ステータス -->
+            <div class="mb-6">
+                <p class="mb-2 text-sm text-gray-500">ステータス</p>
+                <p class="font-medium">{{ $task->status_label }}</p>
+            </div>
+
+            <!-- 期限 -->
+            <div class="mb-8">
+                <p class="mb-2 text-sm text-gray-500">期限</p>
+                <p>{{ $task->due_date }}</p>
+            </div>
+
+            <!-- ボタン -->
+            <div class="flex gap-3">
+                @can('update',$task)
+                <a href="{{ route('tasks.edit',$task) }}" class="rounded-lg bg-blue-500 px-6 py-3 text-white hover:bg-blue-600">編集</a>
+                @endcan
+
+                <a href="{{ route('tasks.index') }}" class="rounded-lg border px-6 py-3 hover:bg-gray-100">一覧へ戻る</a>
+            </div>
+        </div>
+    </div>
+</x-layouts::app>
