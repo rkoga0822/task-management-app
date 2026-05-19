@@ -12,13 +12,13 @@
         <div class="grid gap-6 md:grid-cols-3">
 
             <!-- ユーザー管理 -->
-            <a href="{{ route('users.index') }}" class="rounded-2xl border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <a href="{{ route('admin.users.index') }}" class="rounded-2xl border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                 <h2 class="mb-2 text-xl font-bold">ユーザー管理</h2>
                 <p class="text-sm text-gray-500">登録ユーザーの確認・編集を行います</p>
             </a>
 
             <!-- Todo確認 -->
-            <a href="#" class="rounded-2xl border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <a href="{{ route('admin.tasks.index') }}" class="rounded-2xl border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                 <h2 class="mb-2 text-xl font-bold">Todo全体確認</h2>
                 <p class="text-sm text-gray-500">全ユーザーのTodoを確認します</p>
             </a>

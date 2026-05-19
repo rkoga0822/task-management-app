@@ -16,9 +16,12 @@ Route::middleware('auth')->group(function () {
 });
 
 //管理者ルート
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     //管理者初期画面
-    Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    //管理者でのtodocrud操作
     Route::resource('users', AdminController::class)->except(['show']);
+    //ユーザーのtodo全件表示
+    Route::get('/tasks',[AdminController::class,'tasks'])->name('tasks.index');
 });
 require __DIR__ . '/settings.php';
