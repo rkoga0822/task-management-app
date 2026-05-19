@@ -46,18 +46,9 @@ class AdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    // public function show(Task $task): View
-    // {
-    //     $this->authorize('view', $task);
-    //     return view('tasks.show', compact('task'));
-    // }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task): View
+    public function edit(User $user)
     {
         $this->authorize('admin');
 
@@ -67,23 +58,34 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(Request $request, User $user)
     {
-        $this->authorize('update', $task);
-        $task->update($request->validated());
-        return redirect()->route('tasks.index');
+        $this->authorize('admin');
+
+        $request->validate([
+            'name' => 'required|max:255'
+        ]);
+
+        $user->update([
+            'name' => $request->name
+        ]);
+
+        return redirect()
+            ->route('admin.users.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task, User $user)
+    public function destroy(User $user)
     {
         $this->authorize('admin');
 
+        $user->tasks()->delete();
+
         $user->delete();
 
-        return redirect()->route('users.index');
+        return redirect()->route('admin.users.index');
     }
 
     public function userlist(): View
@@ -92,12 +94,21 @@ class AdminController extends Controller
     }
 
     //登録ユーザーのtodo全件取得
-    public function tasks()
+    public function tasks(Request $request)
     {
         $this->authorize('admin');
 
-        $tasks = Task::with('user')->latest()->get();
+        $userId = $request->input('user_id');
 
-        return view('admin.tasks.index',compact('tasks'));
+        $tasks = Task::with('user')
+            ->when($userId, function ($query, $userId) {
+                $query->where('user_id', $userId);
+            })
+            ->latest()
+            ->paginate(10);
+
+        $users = User::orderBy('name')->get();
+
+        return view('admin.tasks.index', compact('tasks', 'users', 'userId'));
     }
 }

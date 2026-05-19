@@ -3,7 +3,7 @@
     <div class="mx-auto max-w-5xl space-y-6">
 
         <!-- ヘッダー -->
-        <div class="flex items-center justify-between">
+        <div class="mb-8 flex items-center justify-between">
 
             <div>
                 <h1 class="text-3xl font-bold">Todo一覧</h1>

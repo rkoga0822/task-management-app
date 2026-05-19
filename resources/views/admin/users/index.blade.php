@@ -8,7 +8,7 @@
 
                 <p class="mt-2 text-gray-500">登録ユーザーの管理を行います</p>
             </div>
-            <a href="{{ route('admin.dashboard') }}" class="rounded-lg border px-5 py-3 hover:bg-gray-100">← 管理画面へ戻る</a>
+            <a href="{{ route('admin.dashboard') }}" class="rounded-xl bg-black border px-5 py-3 hover:bg-gray-100">← 管理画面へ戻る</a>
 
         </div>
 
@@ -35,12 +35,12 @@
 
                         <!-- 編集 -->
                         <td class="px-6 py-5 text-center">
-                            <a href="#" class="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">編集</a>
+                            <a href="{{route('admin.users.edit',$user)}}" class="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">編集</a>
                         </td>
 
                         <!-- 削除 -->
                         <td class="px-6 py-5 text-center">
-                            <form action="#" method="POST">
+                            <form action="{{route('admin.users.destroy',$user)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button onclick="return confirm('本当に削除しますか？')" class="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600">削除</button>
