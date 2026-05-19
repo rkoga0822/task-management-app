@@ -2,7 +2,22 @@
     <div class="p-8">
         <h1 class="text-2xl font-bold mb-6">Todo全体確認</h1>
 
-        <a href="{{ route('admin.dashboard') }}" class="rounded-lg border px-5 py-3 hover:bg-gray-100">← 管理画面へ戻る</a>
+        <div class="mb-6">
+            <a href="{{ route('admin.dashboard') }}" class="rounded-lg border px-5 py-3 hover:bg-gray-100">← 管理画面へ戻る</a>
+        </div>
+
+        <form method="GET" action="{{ route('admin.tasks.index') }}" class="mb-6 flex items-center gap-3">
+
+            <select name="user_id" class="border rounded p-2">
+                <option value="">全ユーザー</option>
+
+                @foreach($users as $user)
+                <option value="{{ $user->id }}" {{ $userId == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                @endforeach
+            </select>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded">絞り込み</button>
+
+        </form>
 
         <div class="bg-white rounded-lg shadow overflow-x-auto">
             <table class="w-full">
