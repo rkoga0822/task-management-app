@@ -12,7 +12,7 @@ use Illuminate\View\View;
 class AdminController extends Controller
 {
 
-    public function dashboard():View
+    public function dashboard(): View
     {
         $this->authorize('admin');
         return view('admin.dashboard');
@@ -21,9 +21,9 @@ class AdminController extends Controller
     public function index(): View
     {
         $this->authorize('admin');
-       $users=User::latest()->get();
-       $tasks=Task::latest()->get();
-        return view('admin.users.index', compact(['users','tasks']));
+        $users = User::latest()->get();
+        $tasks = Task::latest()->get();
+        return view('admin.users.index', compact(['users', 'tasks']));
     }
 
     /**
@@ -77,7 +77,7 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task,User $user)
+    public function destroy(Task $task, User $user)
     {
         $this->authorize('admin');
 
@@ -86,8 +86,18 @@ class AdminController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function userlist():View
+    public function userlist(): View
     {
         return view('admin.userlist');
+    }
+
+    //登録ユーザーのtodo全件取得
+    public function tasks()
+    {
+        $this->authorize('admin');
+
+        $tasks = Task::with('user')->latest()->get();
+
+        return view('admin.tasks.index',compact('tasks'));
     }
 }

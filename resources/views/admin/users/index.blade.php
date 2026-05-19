@@ -35,12 +35,12 @@
 
                         <!-- 編集 -->
                         <td class="px-6 py-5 text-center">
-                            <a href="{{ route('users.edit',$user) }}" class="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">編集</a>
+                            <a href="#" class="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">編集</a>
                         </td>
 
                         <!-- 削除 -->
                         <td class="px-6 py-5 text-center">
-                            <form action="{{ route('users.destroy',$user) }}" method="POST">
+                            <form action="#" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button onclick="return confirm('本当に削除しますか？')" class="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600">削除</button>
